@@ -52,7 +52,7 @@ if __name__ == "__main__":
     # Panggil fungsi dan simpan CSV + scaler
     X_train, X_test, y_train, y_test = preprocess_data(
         data,
-        target="label",  # ganti sesuai kolom target
+        target="Status",  # ganti sesuai kolom target
         save_path="preprocessing/scaler.joblib",
         header_path="preprocessing/header.csv",
         csv_path="preprocessing/foodspoiled_preprocessing.csv"
