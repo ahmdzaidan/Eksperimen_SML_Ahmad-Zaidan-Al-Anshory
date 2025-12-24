@@ -5,7 +5,7 @@ from joblib import dump
 import os
 
 def preprocess_data(data, target, save_path, header_path, csv_path):
-    features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()\
+    features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
     features.remove(target)
     # Simpan header
     pd.DataFrame(columns=features).to_csv(header_path, index=False)
