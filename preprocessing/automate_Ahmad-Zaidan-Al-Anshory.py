@@ -4,16 +4,13 @@ from sklearn.model_selection import train_test_split
 from joblib import dump
 import os
 
-def preprocess_data(data, target, save_path, header_path, csv_path):
+def preprocess_data(data, target, csv_path):
     numeric_cols = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
     
     features = [col for col in numeric_cols if col != target]
 
     if len(features) == 0:
         raise ValueError("Tidak ada fitur numerik selain target")
-
-    # Simpan header
-    pd.DataFrame(columns=features).to_csv(header_path, index=False)
     
     # Duplikat
     data = data.drop_duplicates()
@@ -43,21 +40,16 @@ def preprocess_data(data, target, save_path, header_path, csv_path):
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
 
-    # Simpan scaler
-    dump(scaler, save_path)
-
     return X_train, X_test, y_train, y_test
 
 if __name__ == "__main__":
     # Load data
     data = pd.read_csv("foodspoiled_raw.csv", sep=';')
 
-    # Panggil fungsi dan simpan CSV + scaler
+    # Panggil fungsi dan simpan CSV
     X_train, X_test, y_train, y_test = preprocess_data(
         data,
-        target="Status",  # ganti sesuai kolom target
-        save_path="scaler.joblib",
-        header_path="header.csv",
+        target="Status",
         csv_path="preprocessing/foodspoiled_preprocessing.csv"
     )
 
