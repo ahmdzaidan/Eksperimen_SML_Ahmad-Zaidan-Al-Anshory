@@ -5,9 +5,12 @@ from joblib import dump
 import os
 
 def preprocess_data(data, target, save_path, header_path, csv_path):
-    features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
-    if target in features:
-        features.remove(target)
+    numeric_cols = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
+    
+    features = [col for col in numeric_cols if col != target]
+
+    if len(features) == 0:
+        raise ValueError("Tidak ada fitur numerik selain target")
 
     # Simpan header
     pd.DataFrame(columns=features).to_csv(header_path, index=False)
