@@ -3,6 +3,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from joblib import dump
 import os
+from preprocess_module import preprocess_data
 
 def preprocess_data(data, target, save_path, header_path, csv_path):
     features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
@@ -43,3 +44,18 @@ def preprocess_data(data, target, save_path, header_path, csv_path):
     dump(scaler, save_path)
 
     return X_train, X_test, y_train, y_test
+
+if __name__ == "__main__":
+    # Load data
+    data = pd.read_csv("preprocessing/foodspoiled_raw.csv")
+
+    # Panggil fungsi dan simpan CSV + scaler
+    X_train, X_test, y_train, y_test = preprocess_data(
+        data,
+        target="label",  # ganti sesuai kolom target
+        save_path="preprocessing/scaler.joblib",
+        header_path="preprocessing/header.csv",
+        csv_path="preprocessing/foodspoiled_preprocessing.csv"
+    )
+
+    print("Preprocessing selesai ✅")
