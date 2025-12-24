@@ -50,7 +50,7 @@ def preprocess_data(data, target, save_path, header_path, csv_path):
 
 if __name__ == "__main__":
     # Load data
-    data = pd.read_csv("foodspoiled_raw.csv")
+    data = pd.read_csv("foodspoiled_raw.csv", sep=';')
 
     # Panggil fungsi dan simpan CSV + scaler
     X_train, X_test, y_train, y_test = preprocess_data(
