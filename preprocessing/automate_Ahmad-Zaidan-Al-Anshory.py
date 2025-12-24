@@ -3,11 +3,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from joblib import dump
 import os
-from preprocess_module import preprocess_data
 
 def preprocess_data(data, target, save_path, header_path, csv_path):
-    features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()
-    features.remove(target)
+    features = data.select_dtypes(include=["int64", "float64"]).columns.tolist()\
 
     # Simpan header
     pd.DataFrame(columns=features).to_csv(header_path, index=False)
@@ -47,15 +45,15 @@ def preprocess_data(data, target, save_path, header_path, csv_path):
 
 if __name__ == "__main__":
     # Load data
-    data = pd.read_csv("foodspoiled_raw.csv")
+    data = pd.read_csv("../foodspoiled_raw.csv")
 
     # Panggil fungsi dan simpan CSV + scaler
     X_train, X_test, y_train, y_test = preprocess_data(
         data,
         target="Status",  # ganti sesuai kolom target
-        save_path="preprocessing",
-        header_path="preprocessing",
-        csv_path="preprocessing"
+        save_path="scaler.joblib",
+        header_path="header.csv",
+        csv_path="foodspoiled_preprocessing.csv"
     )
 
     print("Preprocessing selesai ✅")
