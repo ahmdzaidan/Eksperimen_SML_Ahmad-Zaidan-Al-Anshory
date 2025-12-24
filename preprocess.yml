@@ -1,0 +1,33 @@
+name: Data Preprocessing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "foodspoiled_raw.csv"
+      - "preprocessing/automate_Ahmad-Zaidan-Al-Anshory.py"
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - run: |
+        pip install pandas numpy scikit-learn
+
+    - name: Run preprocessing
+      run: |
+        python preprocessing/automate_Ahmad-Zaidan-Al-Anshory.py
+
+    - name: Upload output
+      uses: actions/upload-artifact@v4
+      with:
+        name: preprocessing-result
+        path: preprocessing/foodspoiled_preprocessing.csv
