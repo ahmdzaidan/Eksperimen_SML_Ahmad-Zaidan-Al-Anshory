@@ -53,9 +53,9 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = preprocess_data(
         data,
         target="Status",  # ganti sesuai kolom target
-        save_path="preprocessing/scaler.joblib",
-        header_path="preprocessing/header.csv",
-        csv_path="preprocessing/foodspoiled_preprocessing.csv"
+        save_path="preprocessing",
+        header_path="preprocessing",
+        csv_path="preprocessing"
     )
 
     print("Preprocessing selesai ✅")
